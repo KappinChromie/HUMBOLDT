@@ -1,0 +1,157 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1731200000000,
+    "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson",
+    "title": "USGS Earthquakes (Fixture)",
+    "status": 200,
+    "api": "1.10.3",
+    "count": 4
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 6.2,
+        "place": "128 km SSE of Kokopo, Papua New Guinea",
+        "time": 1731198500000,
+        "updated": 1731199000000,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/event/us7000m1q1",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us7000m1q1.geojson",
+        "felt": 12,
+        "cdi": 4.1,
+        "mmi": 5.8,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 589,
+        "net": "us",
+        "code": "7000m1q1",
+        "ids": ",us7000m1q1,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 42,
+        "dmin": 1.25,
+        "rms": 0.78,
+        "gap": 34.0,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 6.2 - 128 km SSE of Kokopo, Papua New Guinea"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [152.845, -5.312, 52.4]
+      },
+      "id": "us7000m1q1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.8,
+        "place": "Southern East Pacific Rise",
+        "time": 1731197200000,
+        "updated": 1731198000000,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/event/us7000m1q2",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us7000m1q2.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 354,
+        "net": "us",
+        "code": "7000m1q2",
+        "ids": ",us7000m1q2,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 28,
+        "dmin": 8.12,
+        "rms": 0.91,
+        "gap": 62.0,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.8 - Southern East Pacific Rise"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-111.450, -55.230, 10.0]
+      },
+      "id": "us7000m1q2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.1,
+        "place": "14 km NE of Ridgecrest, CA",
+        "time": 1731196400000,
+        "updated": 1731197000000,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/event/ci40123456",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ci40123456.geojson",
+        "felt": 34,
+        "cdi": 2.5,
+        "mmi": null,
+        "alert": null,
+        "status": "automatic",
+        "tsunami": 0,
+        "sig": 149,
+        "net": "ci",
+        "code": "40123456",
+        "ids": ",ci40123456,",
+        "sources": ",ci,",
+        "types": ",origin,phase-data,",
+        "nst": 19,
+        "dmin": 0.08,
+        "rms": 0.14,
+        "gap": 48.0,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.1 - 14 km NE of Ridgecrest, CA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.580, 35.720, 7.8]
+      },
+      "id": "ci40123456"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5.4,
+        "place": "Near coast of Honshu, Japan",
+        "time": 1731195100000,
+        "updated": 1731196000000,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/event/us7000m1q3",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us7000m1q3.geojson",
+        "felt": 182,
+        "cdi": 4.8,
+        "mmi": 4.5,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 449,
+        "net": "us",
+        "code": "7000m1q3",
+        "ids": ",us7000m1q3,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 65,
+        "dmin": 0.65,
+        "rms": 0.52,
+        "gap": 55.0,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 5.4 - Near coast of Honshu, Japan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [141.280, 37.150, 41.2]
+      },
+      "id": "us7000m1q3"
+    }
+  ]
+}

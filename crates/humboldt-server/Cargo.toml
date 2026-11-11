@@ -1,0 +1,47 @@
+[package]
+name = "humboldt-server"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "humboldt"
+path = "src/main.rs"
+
+[dependencies]
+humboldt-core = { workspace = true }
+humboldt-storage = { workspace = true }
+humboldt-security = { workspace = true }
+humboldt-collectors = { workspace = true }
+humboldt-geo = { workspace = true }
+humboldt-news = { workspace = true }
+humboldt-alerts = { workspace = true }
+tokio = { workspace = true }
+axum = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+rust-embed = { workspace = true }
+mime_guess = { workspace = true }
+open = { workspace = true }
+tray-icon = { workspace = true }
+muda = { workspace = true }
+arboard = { workspace = true }
+thiserror = { workspace = true }
+reqwest = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+futures = "0.3"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = [
+    "Win32_System_Threading",
+    "Win32_Foundation",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_Security",
+] }

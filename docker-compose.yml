@@ -1,0 +1,28 @@
+services:
+  humboldt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: humboldt
+    restart: unless-stopped
+    ports:
+      - "8374:8374"
+    volumes:
+      - humboldt_data:/data
+    environment:
+      - HUMBOLDT_HEADLESS=1
+      - HUMBOLDT_DATA_DIR=/data
+      - HUMBOLDT_BIND_HOST=0.0.0.0
+      - HUMBOLDT_PORT=8374
+      - HUMBOLDT_LAN_MODE=1
+      - RUST_LOG=info,humboldt_server=info
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8374/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  humboldt_data:
+    driver: local

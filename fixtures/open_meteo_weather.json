@@ -1,0 +1,18 @@
+{
+  "latitude": 39.1,
+  "longitude": -94.58,
+  "generationtime_ms": 0.05,
+  "utc_offset_seconds": 0,
+  "timezone": "GMT",
+  "timezone_abbreviation": "GMT",
+  "elevation": 270.0,
+  "current": {
+    "time": "2024-11-09T18:00",
+    "interval": 900,
+    "temperature_2m": 18.5,
+    "relative_humidity_2m": 55,
+    "apparent_temperature": 18.2,
+    "precipitation": 0.0,
+    "wind_speed_10m": 14.2
+  }
+}

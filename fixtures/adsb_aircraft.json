@@ -1,0 +1,45 @@
+{
+  "ac": [
+    {
+      "hex": "a8234a",
+      "flight": "AAL100  ",
+      "lat": 39.0997,
+      "lon": -94.5786,
+      "alt_baro": 35000,
+      "alt_geom": 35400,
+      "track": 185.4,
+      "gs": 462.1,
+      "squawk": "1200",
+      "category": "A3",
+      "seen": 0.2
+    },
+    {
+      "hex": "a45f91",
+      "flight": "SWA456  ",
+      "lat": 32.8998,
+      "lon": -97.0403,
+      "alt_baro": 12500,
+      "alt_geom": 12650,
+      "track": 42.1,
+      "gs": 280.5,
+      "squawk": "3412",
+      "category": "A2",
+      "seen": 1.1
+    },
+    {
+      "hex": "c0182b",
+      "flight": "ACA850  ",
+      "lat": 45.4215,
+      "lon": -75.6972,
+      "alt_baro": 38000,
+      "alt_geom": 38200,
+      "track": 95.0,
+      "gs": 510.0,
+      "squawk": "2104",
+      "category": "A4",
+      "seen": 0.8
+    }
+  ],
+  "now": 1731200000.5,
+  "total": 3
+}

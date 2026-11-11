@@ -1,0 +1,22 @@
+[package]
+name = "humboldt-news"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+humboldt-core = { workspace = true }
+humboldt-geo = { workspace = true }
+humboldt-storage = { workspace = true }
+reqwest = { workspace = true }
+feed-rs = { workspace = true }
+quick-xml = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+tracing = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+urlencoding = "2.1"

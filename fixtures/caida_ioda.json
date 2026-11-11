@@ -1,0 +1,27 @@
+{
+  "status": "success",
+  "data": [
+    {
+      "id": "macro_outage_101",
+      "entity_type": "country",
+      "entity_code": "CU",
+      "entity_name": "Cuba",
+      "start_time": 1731195000,
+      "end_time": null,
+      "score": 0.82,
+      "affected_asns": 12,
+      "description": "National electrical grid failure causing macro BGP disruption"
+    },
+    {
+      "id": "macro_outage_102",
+      "entity_type": "asn",
+      "entity_code": "AS12345",
+      "entity_name": "Regional Transit Fiber",
+      "start_time": 1731197000,
+      "end_time": null,
+      "score": 0.45,
+      "affected_asns": 1,
+      "description": "Subsea cable maintenance window"
+    }
+  ]
+}

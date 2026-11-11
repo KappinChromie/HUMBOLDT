@@ -1,0 +1,38 @@
+[
+  {
+    "MessageType": "PositionReport",
+    "MetaData": {
+      "MMSI": 367123456,
+      "ShipName": "PACIFIC TITAN",
+      "latitude": 29.8123,
+      "longitude": -93.9456,
+      "time_utc": "2024-11-09T18:00:00Z"
+    },
+    "Message": {
+      "PositionReport": {
+        "Cog": 120.4,
+        "Sog": 12.8,
+        "TrueHeading": 119,
+        "NavigationalStatus": 0
+      }
+    }
+  },
+  {
+    "MessageType": "PositionReport",
+    "MetaData": {
+      "MMSI": 211876543,
+      "ShipName": "HAMBURG EXPRESS",
+      "latitude": 53.5511,
+      "longitude": 9.9937,
+      "time_utc": "2024-11-09T18:00:05Z"
+    },
+    "Message": {
+      "PositionReport": {
+        "Cog": 285.0,
+        "Sog": 8.2,
+        "TrueHeading": 284,
+        "NavigationalStatus": 0
+      }
+    }
+  }
+]

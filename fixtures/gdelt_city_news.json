@@ -1,0 +1,34 @@
+{
+  "articles": [
+    {
+      "url": "https://www.kansascity.com/news/local/article2891234.html",
+      "url_mobile": "https://amp.kansascity.com/news/local/article2891234.html",
+      "title": "Kansas City Streetcar Extension Testing Begins on Main Street",
+      "seendate": "20261109T183000Z",
+      "socialimage": "https://www.kansascity.com/image.jpg",
+      "domain": "kansascity.com",
+      "language": "English",
+      "sourcecountry": "United States"
+    },
+    {
+      "url": "https://fox4kc.com/news/local/new-clean-energy-project-breaks-ground-in-jackson-county/",
+      "url_mobile": "",
+      "title": "New Clean Energy Solar Array Breaks Ground in Jackson County",
+      "seendate": "20261109T141500Z",
+      "socialimage": "",
+      "domain": "fox4kc.com",
+      "language": "English",
+      "sourcecountry": "United States"
+    },
+    {
+      "url": "https://www.kcur.org/news/2026-11-08/missouri-river-crest-forecast-autumn",
+      "url_mobile": "",
+      "title": "Missouri River Autumn Hydrological Flow Remains Stable, Officials Say",
+      "seendate": "20261108T110000Z",
+      "socialimage": "",
+      "domain": "kcur.org",
+      "language": "English",
+      "sourcecountry": "United States"
+    }
+  ]
+}

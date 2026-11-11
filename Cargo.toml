@@ -1,0 +1,60 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/humboldt-core",
+    "crates/humboldt-storage",
+    "crates/humboldt-security",
+    "crates/humboldt-collectors",
+    "crates/humboldt-geo",
+    "crates/humboldt-news",
+    "crates/humboldt-alerts",
+    "crates/humboldt-server",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["HUMBOLDT Contributors"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/humboldt/humboldt"
+
+[workspace.dependencies]
+humboldt-core = { path = "crates/humboldt-core" }
+humboldt-storage = { path = "crates/humboldt-storage" }
+humboldt-security = { path = "crates/humboldt-security" }
+humboldt-collectors = { path = "crates/humboldt-collectors" }
+humboldt-geo = { path = "crates/humboldt-geo" }
+humboldt-news = { path = "crates/humboldt-news" }
+humboldt-alerts = { path = "crates/humboldt-alerts" }
+
+tokio = { version = "1.40", features = ["full"] }
+axum = { version = "0.7", features = ["ws"] }
+tower = "0.5"
+tower-http = { version = "0.5", features = ["cors", "compression-full", "trace"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "sqlite", "chrono", "uuid", "json", "migrate"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+rust-embed = "8.5"
+mime_guess = "2.0"
+open = "5.3"
+tray-icon = "0.26"
+muda = "0.21"
+arboard = "3.4"
+dirs = "6.0"
+thiserror = "2.0"
+uuid = { version = "1.10", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+aes-gcm = "0.10"
+argon2 = "0.5"
+keyring = "3.2"
+zeroize = { version = "1.8", features = ["derive"] }
+sgp4 = "2.4"
+rand = "0.8"
+flate2 = "1.0"
+rstar = "0.12"
+geo = "0.28"
+feed-rs = "1.5"
+quick-xml = "0.36"

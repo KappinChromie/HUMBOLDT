@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HUMBOLDT — Analytics & Real-time Global Information System</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app" class="humboldt-terminal">
+      <!-- TOP BAR -->
+      <header id="top-bar" class="panel-border-bottom">
+        <div class="top-bar-left">
+          <div class="brand">
+            <span class="brand-glyph">◈</span>
+            <span class="brand-name">HUMBOLDT</span>
+          </div>
+          <div class="status-pill" id="port-indicator">
+            <span class="pill-label">PORT:</span>
+            <span class="pill-value" id="current-port">...</span>
+          </div>
+          <div class="status-pill status-nominal" id="health-indicator">
+            <span class="status-dot"></span>
+            <span class="pill-label">HEALTH:</span>
+            <span class="pill-value" id="current-health">NOMINAL</span>
+          </div>
+          <div class="status-pill status-nominal" id="ws-indicator">
+            <span class="status-dot"></span>
+            <span class="pill-label">BUS:</span>
+            <span class="pill-value" id="ws-status">LIVE STREAM</span>
+          </div>
+        </div>
+
+        <div class="top-bar-center">
+          <div class="status-pill" id="space-wx-indicator">
+            <span class="pill-label">NOAA KP:</span>
+            <span class="pill-value" id="kp-gauge-value">Kp 2.0</span>
+          </div>
+          <div class="status-pill" id="grid-mix-indicator">
+            <span class="pill-label">GRID:</span>
+            <span class="pill-value" id="grid-mix-value">48% RENEW</span>
+          </div>
+          <div class="time-display">
+            <span class="pill-label">UTC:</span>
+            <span class="pill-value" id="utc-clock">00:00:00 UTC</span>
+          </div>
+        </div>
+
+        <div class="top-bar-right">
+          <button id="btn-attribution" class="btn btn-secondary">
+            <span class="btn-icon">⚖</span>
+            <span>Attribution</span>
+          </button>
+          <button id="btn-settings" class="btn btn-secondary">
+            <span class="btn-icon">⚙</span>
+            <span>Settings</span>
+          </button>
+          <button id="btn-quit" class="btn btn-quit" title="Quit HUMBOLDT Application">
+            <span class="btn-icon">⏻</span>
+            <span>Quit</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- MAIN WORKSPACE -->
+      <main id="workspace">
+        <!-- LAYER RAIL (LEFT) -->
+        <aside id="layer-rail" class="panel panel-border-right">
+          <div class="rail-header">
+            <span class="rail-title">OBSERVATION LAYERS</span>
+          </div>
+          <div class="rail-items" id="layer-toggles">
+            <!-- 1. Aircraft (ADS-B) -->
+            <div class="rail-item" data-layer="aircraft">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="aircraft" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">AIR</span>
+                <span class="layer-name">Aircraft (ADS-B)</span>
+              </label>
+            </div>
+
+            <!-- 2. Vessels (AIS) -->
+            <div class="rail-item" data-layer="ship">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="ship" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">SEA</span>
+                <span class="layer-name">Vessels (AIS)</span>
+              </label>
+              <div class="layer-key-container" data-provider-id="aisstream" data-layer="ship"></div>
+            </div>
+
+            <!-- 3. Satellites (SGP4) -->
+            <div class="rail-item" data-layer="satellite">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="satellite" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">SAT</span>
+                <span class="layer-name">Satellites (SGP4)</span>
+              </label>
+            </div>
+
+            <!-- 4. Earthquakes (USGS) -->
+            <div class="rail-item" data-layer="quake">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="quake" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">QK</span>
+                <span class="layer-name">Earthquakes (USGS)</span>
+              </label>
+            </div>
+
+            <!-- 5. Surface Weather -->
+            <div class="rail-item" data-layer="weather">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="weather" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">WTH</span>
+                <span class="layer-name">Surface Weather</span>
+              </label>
+            </div>
+
+            <!-- 6. Weather Radar (Doppler) -->
+            <div class="rail-item" data-layer="radar">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="radar" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">RDR</span>
+                <span class="layer-name">Weather Radar</span>
+              </label>
+            </div>
+
+            <!-- 7. Wildfires (NASA FIRMS) -->
+            <div class="rail-item" data-layer="wildfire">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="wildfire" />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">FIRE</span>
+                <span class="layer-name">Wildfires (FIRMS)</span>
+              </label>
+              <div class="layer-key-container" data-provider-id="nasa_firms" data-layer="wildfire"></div>
+            </div>
+
+            <!-- 8. Air Quality (OpenAQ) -->
+            <div class="rail-item" data-layer="air_quality">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="air_quality" />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">AQI</span>
+                <span class="layer-name">Air Quality (OpenAQ)</span>
+              </label>
+              <div class="layer-key-container" data-provider-id="openaq" data-layer="air_quality"></div>
+            </div>
+
+            <!-- 9. Power Grid (EIA / ESO) -->
+            <div class="rail-item" data-layer="power_grid">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="power_grid" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">MET</span>
+                <span class="layer-name">Power Grid (EIA / ESO)</span>
+              </label>
+              <div class="layer-key-container" data-provider-id="eia" data-layer="power_grid"></div>
+            </div>
+
+            <!-- 10. Space Weather (SWPC) -->
+            <div class="rail-item" data-layer="space_weather">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="space_weather" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">SPW</span>
+                <span class="layer-name">Space Weather (SWPC)</span>
+              </label>
+            </div>
+
+            <!-- 11. Rivers / Hydrology -->
+            <div class="rail-item" data-layer="hydro">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="hydro" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">HYD</span>
+                <span class="layer-name">Rivers / Hydro (USGS)</span>
+              </label>
+            </div>
+
+            <!-- 12. Marine Buoys (NDBC) -->
+            <div class="rail-item" data-layer="buoy">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="buoy" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">BOY</span>
+                <span class="layer-name">Marine Buoys (NDBC)</span>
+              </label>
+            </div>
+
+            <!-- 13. Internet Health (CAIDA) -->
+            <div class="rail-item" data-layer="internet_health">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="internet_health" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">NET</span>
+                <span class="layer-name">Internet Outages (IODA)</span>
+              </label>
+            </div>
+
+            <!-- 14. Tropical Cyclones (NOAA NHC) -->
+            <div class="rail-item" data-layer="cyclone">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="cyclone" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">CYC</span>
+                <span class="layer-name">Tropical Cyclones (NHC)</span>
+              </label>
+            </div>
+
+            <!-- 15. Active Volcanoes (USGS) -->
+            <div class="rail-item" data-layer="volcano">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="volcano" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">VOL</span>
+                <span class="layer-name">Active Volcanoes (USGS)</span>
+              </label>
+            </div>
+
+            <!-- 16. Subsea Cables (TeleGeography) -->
+            <div class="rail-item" data-layer="submarine_cable">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="submarine_cable" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">CAB</span>
+                <span class="layer-name">Subsea Fiber Cables</span>
+              </label>
+            </div>
+
+            <!-- 17. Radiation Monitoring (Safecast) -->
+            <div class="rail-item" data-layer="radiation">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="radiation" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">RAD</span>
+                <span class="layer-name">Radiation Monitors</span>
+              </label>
+            </div>
+
+            <!-- 18. Aurora Forecast (NOAA SWPC) -->
+            <div class="rail-item" data-layer="aurora">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="aurora" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">AUR</span>
+                <span class="layer-name">Aurora Forecast Oval</span>
+              </label>
+            </div>
+
+            <!-- 19. Global Disasters (GDACS) -->
+            <div class="rail-item" data-layer="disaster">
+              <label class="rail-item-label">
+                <input type="checkbox" data-layer="disaster" checked />
+                <span class="custom-checkbox"></span>
+                <span class="layer-code">DIS</span>
+                <span class="layer-name">Crisis & Disasters (UN)</span>
+              </label>
+            </div>
+          </div>
+          <div class="rail-footer">
+            <div class="basemap-selector-section">
+              <div class="basemap-header">
+                <span class="basemap-title">BASEMAP RESOLUTION</span>
+                <span class="tier-badge" id="current-tier-badge">TIER 2 (ONLINE)</span>
+              </div>
+              <select id="select-basemap" class="select-basemap" title="Choose globe basemap layer">
+                <option value="satellite" selected>High-Res Satellite (Aerials)</option>
+                <option value="dark">Dark Instrument (CartoDB)</option>
+                <option value="osm">OpenStreetMap (Street Level)</option>
+                <option value="offline">Bundled Offline (Natural Earth)</option>
+                <option value="ion">Cesium ion (3D World Terrain)</option>
+              </select>
+              <div class="basemap-status" id="basemap-status-desc">
+                High-resolution global satellite photography (ESRI World Imagery).
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- 3D GLOBE (CENTER) -->
+        <section id="globe-viewport">
+          <div id="cesiumContainer"></div>
+          <div id="globe-coordinates-overlay">
+            <span id="camera-coords">LAT: 00.0000° | LON: 000.0000° | ALT: 20,000 km</span>
+            <span class="hud-separator">|</span>
+            <span class="hud-basemap-label">MAP:</span>
+            <select id="quick-select-basemap" class="quick-select-basemap" title="Quick change basemap">
+              <option value="satellite" selected>Satellite</option>
+              <option value="dark">Dark</option>
+              <option value="osm">Street (OSM)</option>
+              <option value="offline">Offline</option>
+              <option value="ion">Cesium ion</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- CONTEXT PANEL (RIGHT) -->
+        <aside id="context-panel" class="panel panel-border-left">
+          <div class="panel-section" id="selection-panel-section">
+            <div class="section-header">
+              <span class="section-title">SELECTED BREAKDOWN</span>
+              <span class="badge" id="selected-layer-badge">GLOBAL</span>
+            </div>
+            <div class="location-summary" id="location-summary">
+              <div class="location-header-row">
+                <span class="location-icon" id="selected-entity-icon">◈</span>
+                <div class="location-name" id="selected-entity-name">Global Observation Mode</div>
+              </div>
+              <div class="location-coords" id="selected-entity-details">Click any location on globe or entity to inspect breakdown</div>
+            </div>
+            <div id="entity-breakdown-grid" class="breakdown-grid">
+              <div class="breakdown-tile">
+                <span class="breakdown-tile-label">Observation Mode</span>
+                <span class="breakdown-tile-value highlight-cyan">Global Sweep</span>
+              </div>
+              <div class="breakdown-tile">
+                <span class="breakdown-tile-label">Spatial Cartography</span>
+                <span class="breakdown-tile-value">Tier 1 Bundled</span>
+              </div>
+              <div class="breakdown-tile">
+                <span class="breakdown-tile-label">Coordinate System</span>
+                <span class="breakdown-tile-value">WGS84 Ellipsoid</span>
+              </div>
+              <div class="breakdown-tile">
+                <span class="breakdown-tile-label">Local Workstation</span>
+                <span class="breakdown-tile-value highlight-green">Online (Nominal)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">TOP DISPATCHES</span>
+              <span class="badge" id="news-count">LIVE</span>
+            </div>
+            <div class="news-feed" id="news-feed">
+              <article class="feed-item">
+                <span class="item-tag tag-system">[SYS]</span>
+                <span class="item-time">00:00</span>
+                <div class="item-title">Tier 1 Offline Cartography Initialized</div>
+                <div class="item-source">Natural Earth 1:50m raster active</div>
+              </article>
+              <article class="feed-item">
+                <span class="item-tag tag-direct">[OBS]</span>
+                <span class="item-time">00:00</span>
+                <div class="item-title">System Ready for Ingestion Streams</div>
+                <div class="item-source">humboldt-server daemon bound to localhost</div>
+              </article>
+            </div>
+          </div>
+
+          <div class="panel-section flex-grow">
+            <div class="section-header">
+              <span class="section-title">TELEMETRY & ANALYTICS</span>
+              <div class="tab-group">
+                <button id="btn-tab-live" class="tab-btn active">LIVE</button>
+                <button id="btn-tab-compare" class="tab-btn">COMPARE</button>
+              </div>
+            </div>
+
+            <!-- LIVE TELEMETRY SUBPANEL -->
+            <div id="subpanel-live" class="telemetry-subpanel">
+              <div class="subpanel-actions">
+                <span class="telemetry-metric-tag" id="live-metric-tag">NOAA KP / POWER MW</span>
+                <button id="btn-save-snapshot" class="btn btn-secondary btn-xs" title="Freeze active series into immutable snapshot">
+                  <span>💾 Freeze Snapshot</span>
+                </button>
+              </div>
+              <div id="telemetry-chart-container" class="chart-container">
+                <div id="echarts-telemetry"></div>
+              </div>
+            </div>
+
+            <!-- COMPARISON SUBPANEL -->
+            <div id="subpanel-compare" class="telemetry-subpanel" style="display: none;">
+              <div class="comparison-selectors">
+                <select id="snapshot-select-a" class="select-input"></select>
+                <select id="snapshot-select-b" class="select-input"></select>
+              </div>
+              <div class="comparison-toolbar">
+                <button id="btn-comp-mode" class="btn btn-secondary btn-xs">MODE: CALENDAR</button>
+                <div class="export-group">
+                  <button id="btn-export-png" class="btn btn-secondary btn-xs" title="Export comparison as PNG">PNG</button>
+                  <button id="btn-export-csv" class="btn btn-secondary btn-xs" title="Export CSV">CSV</button>
+                </div>
+              </div>
+
+              <!-- REAL-TIME STATISTICAL DIVERGENCE BANNER -->
+              <div id="variance-banner" class="variance-banner">
+                <div class="variance-item">
+                  <span class="var-label">Δ MEAN</span>
+                  <span class="var-val">--</span>
+                </div>
+                <div class="variance-item">
+                  <span class="var-label">Δ MAX</span>
+                  <span class="var-val">--</span>
+                </div>
+                <div class="variance-item">
+                  <span class="var-label">Δ MIN</span>
+                  <span class="var-val">--</span>
+                </div>
+                <div class="variance-item">
+                  <span class="var-label">NRMSD</span>
+                  <span class="var-val accent">--</span>
+                </div>
+              </div>
+
+              <div id="comparison-chart-container" class="chart-container">
+                <div id="echarts-comparison"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <!-- TIMELINE BAR (BOTTOM) -->
+      <footer id="timeline-bar" class="panel-border-top">
+        <div class="timeline-controls">
+          <button id="btn-play-pause" class="btn btn-icon-only" title="Play/Pause">
+            <span id="play-pause-icon">▶</span>
+          </button>
+          <button id="btn-step-back" class="btn btn-icon-only" title="Step Back">◀◀</button>
+          <button id="btn-step-fwd" class="btn btn-icon-only" title="Step Forward">▶▶</button>
+          <div class="speed-selector">
+            <span class="speed-label">Speed:</span>
+            <span class="speed-value" id="current-speed">1x</span>
+          </div>
+        </div>
+
+        <div class="timeline-scrubber">
+          <input type="range" id="timeline-slider" min="0" max="100" value="100" class="scrubber-range" />
+        </div>
+
+        <div class="timeline-live-indicator">
+          <span class="live-dot"></span>
+          <span class="live-text">LIVE</span>
+        </div>
+      </footer>
+
+      <!-- SETTINGS & SECURITY MODAL -->
+      <div id="settings-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-window">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span class="brand-glyph">◈</span>
+              <span>SYSTEM SETTINGS & SECURITY</span>
+            </div>
+            <button id="btn-close-settings" class="modal-close" title="Close Settings">✕</button>
+          </div>
+
+          <div class="modal-body">
+            <!-- SECTION: LAN MODE & SECURITY -->
+            <div class="settings-group">
+              <div class="settings-group-header">
+                <span class="settings-group-title">LAN ACCESS & AUTHENTICATION</span>
+                <span id="lan-status-badge" class="badge">OFFLINE LOCAL</span>
+              </div>
+              <div class="alert-box alert-warning">
+                <span class="alert-icon">⚠️</span>
+                <div class="alert-msg">
+                  <strong>UNENCRYPTED LAN NOTICE:</strong> LAN mode operates over standard HTTP and is designed strictly for trusted home local networks. Remote devices must authenticate with Argon2id session cookies.
+                </div>
+              </div>
+              <div class="settings-row">
+                <label for="input-master-pwd">Master Access Password:</label>
+                <div class="input-with-btn">
+                  <input type="password" id="input-master-pwd" class="text-input" placeholder="Enter secure password..." />
+                  <button id="btn-set-password" class="btn btn-secondary">Set Password</button>
+                </div>
+              </div>
+              <div class="settings-row">
+                <span>LAN Network Exposure:</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-lan-mode" />
+                  <span class="toggle-slider"></span>
+                  <span id="lan-toggle-label" class="toggle-text">Disabled</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- SECTION: ALERT RULES & NOTIFICATIONS -->
+            <div class="settings-group">
+              <div class="settings-group-header">
+                <span class="settings-group-title">RULES ENGINE & NOTIFICATIONS</span>
+              </div>
+              <div class="settings-row">
+                <label for="input-discord-webhook">Discord Webhook Target:</label>
+                <div class="input-with-btn">
+                  <input type="password" id="input-discord-webhook" class="text-input" placeholder="https://discord.com/api/webhooks/..." />
+                  <button id="btn-save-webhook" class="btn btn-secondary">Save</button>
+                  <button id="btn-test-discord" class="btn btn-secondary">Test Webhook</button>
+                </div>
+              </div>
+              <div class="settings-row">
+                <span>Desktop Toast Subsystem:</span>
+                <button id="btn-test-toast" class="btn btn-secondary">Dispatch Test Win32 Toast</button>
+              </div>
+              <div class="rules-table-container">
+                <table class="rules-table">
+                  <thead>
+                    <tr>
+                      <th>Rule Name</th>
+                      <th>Layer</th>
+                      <th>Threshold</th>
+                      <th>Cooldown</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rules-tbody">
+                    <!-- Dynamic rules populated via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- SECTION: STORAGE MANAGEMENT -->
+            <div class="settings-group">
+              <div class="settings-group-header">
+                <span class="settings-group-title">STORAGE RECLAMATION & DISK CAP (10 GB)</span>
+                <span id="storage-usage-text" class="storage-usage-text">0 MB / 10,240 MB</span>
+              </div>
+              <div class="storage-bar-track">
+                <div id="storage-bar-fill" class="storage-bar-fill" style="width: 1%;"></div>
+              </div>
+              <div class="storage-actions">
+                <button id="btn-clear-cache" class="btn btn-secondary" title="Purge ephemeral articles, tiles, and dead-reckoned tracking">Clear Caches</button>
+                <button id="btn-delete-snapshots" class="btn btn-secondary" title="Delete all user frozen snapshots">Delete All Snapshots</button>
+                <button id="btn-compact-db" class="btn btn-secondary" title="Reclaim disk pages via SQLite VACUUM">Compact Database (VACUUM)</button>
+              </div>
+            </div>
+
+            <!-- SECTION: DATA PROVIDER API KEYS SHORTCUT -->
+            <div class="settings-group">
+              <div class="settings-group-header">
+                <span class="settings-group-title">UPSTREAM DATA PROVIDERS & CREDENTIALS</span>
+              </div>
+              <div class="settings-row">
+                <span>Manage API keys and access tokens under each data provider:</span>
+                <button id="btn-open-keys-from-settings" class="btn btn-secondary">Open Provider Keys (⚖)</button>
+              </div>
+            </div>
+
+            <!-- SECTION: APPLICATION TERMINATION -->
+            <div class="settings-group">
+              <div class="settings-group-header">
+                <span class="settings-group-title">SESSION MANAGEMENT & SHUTDOWN</span>
+              </div>
+              <div class="settings-row">
+                <span>Terminate HUMBOLDT background server daemon and release active ports:</span>
+                <button id="btn-quit-settings" class="btn btn-quit">Quit Application</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATTRIBUTION & OPEN LICENSES MODAL -->
+      <div id="attribution-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-window modal-lg">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span class="brand-glyph">⚖</span>
+              <span>DATA PROVIDERS, API KEYS & LICENSES</span>
+            </div>
+            <button id="btn-close-attribution" class="modal-close" title="Close Attribution">✕</button>
+          </div>
+          <div class="modal-body">
+            <p class="attribution-lead">
+              HUMBOLDT synthesizes planetary intelligence from open data, public domain sources, and community telemetry. Enter upstream API keys below to validate and unlock commercial or authenticated feeds. Once validated, your key is encrypted in the local Vault.
+            </p>
+            <div id="attribution-grid" class="attribution-grid">
+              <!-- Populated dynamically via JS from /api/v1/attribution -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

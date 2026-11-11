@@ -1,0 +1,17 @@
+[package]
+name = "humboldt-geo"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+humboldt-core = { workspace = true }
+rstar = { workspace = true }
+geo = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+thiserror = { workspace = true }
+flate2 = { workspace = true }

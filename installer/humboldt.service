@@ -1,0 +1,35 @@
+[Unit]
+Description=HUMBOLDT: Analytics & Real-time Global Information System
+Documentation=https://github.com/humboldt/humboldt
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=humboldt
+Group=humboldt
+WorkingDirectory=/data
+Environment="HUMBOLDT_HEADLESS=1"
+Environment="HUMBOLDT_DATA_DIR=/data"
+Environment="HUMBOLDT_BIND_HOST=0.0.0.0"
+Environment="HUMBOLDT_PORT=8374"
+Environment="RUST_LOG=info,humboldt_server=debug"
+
+ExecStart=/usr/local/bin/humboldt
+Restart=always
+RestartSec=5s
+
+# Linux Hardening & Sandboxing
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/data
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictRealtime=true
+
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
