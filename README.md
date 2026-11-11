@@ -16,27 +16,6 @@
 
 Unlike cloud SaaS dashboards that transmit client coordinates and IP addresses to centralized telemetric collectors, HUMBOLDT processes all geospatial indexes, coordinate projections, SGP4 orbital mechanics, and statistical divergence comparisons **entirely on your local machine**.
 
-```text
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│ TOP BAR: [Logo: HUMBOLDT] [Port: 8374] [Health: Nominal] [Time: UTC] [Attribution]    │
-├─────────┬──────────────────────────────────────────────────────────────┬───────────────┤
-│ LAYER   │                                                              │ CONTEXT PANEL │
-│ RAIL    │                                                              │ [News / Graph]│
-│         │                                                              │               │
-│ [x] Air │                                                              │ Location:     │
-│ [x] Sea │                      CESIUM 3D GLOBE                         │ Kansas City   │
-│ [x] Sat │                                                              ├───────────────┤
-│ [x] Qk  │                                                              │ Top News:     │
-│ [x] Wth │                                                              │ • Headline 1  │
-│ [x] Met │                                                              │ • Headline 2  │
-│         │                                                              ├───────────────┤
-│         │                                                              │ Graph / Comp: │
-│         │                                                              │ [  ECharts  ] │
-├─────────┴──────────────────────────────────────────────────────────────┴───────────────┤
-│ TIMELINE BAR: [Play/Pause] [◀◀] [▶▶] [Speed: 1x] ───○──────────────────────── [Live]   │
-└────────────────────────────────────────────────────────────────────────────────────────┘
-```
-
 ---
 
 ## 2. Core Capabilities
