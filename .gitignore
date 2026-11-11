@@ -37,3 +37,8 @@ Thumbs.db
 # Log files
 *.log
 logs/
+
+# Release bundles
+release_artifacts/
+humboldt-*.zip
+

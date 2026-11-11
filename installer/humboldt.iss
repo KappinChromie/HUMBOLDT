@@ -4,7 +4,7 @@
 #define MyAppName "HUMBOLDT"
 #define MyAppVersion "0.1.0"
 #define MyAppPublisher "HUMBOLDT Open Source Initiative"
-#define MyAppURL "https://github.com/humboldt/humboldt"
+#define MyAppURL "https://github.com/KappinChromie/HUMBOLDT"
 #define MyAppExeName "humboldt.exe"
 #define MyAUMID "Humboldt.Desktop"
 
